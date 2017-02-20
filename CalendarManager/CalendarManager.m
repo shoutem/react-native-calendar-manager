@@ -16,14 +16,14 @@
 
 RCT_EXPORT_MODULE();
 
-RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details)
+RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBlock)callback)
 {
     if (!self.eventStore)
     {
-        [self initEventStoreWithCalendarCapabilities:details];
+        [self initEventStoreWithCalendarCapabilities:details callback:callback];
         return;
     }
-    
+
     // Empty string is converted to uknown file path URL
     // We want to treat it as invalid url
     NSString *rsvpLink = details[@"rsvpLink"];
@@ -42,14 +42,14 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details)
     event.title = name;
     event.URL = URL;
     event.location = location;
-    
+
     EKEventEditViewController *editEventController = [[EKEventEditViewController alloc] init];
     editEventController.event = event;
     editEventController.eventStore = self.eventStore;
     editEventController.editViewDelegate = self;
-    
+
     AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-    
+
     [delegate.window.rootViewController presentViewController:editEventController animated:YES completion:nil];
 }
 
@@ -60,16 +60,16 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details)
     [controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)initEventStoreWithCalendarCapabilities:(NSDictionary *)details
+- (void)initEventStoreWithCalendarCapabilities:(NSDictionary *)details callback:(RCTResponseSenderBlock)callback
 {
-    
+
     EKEventStore *localEventStore = [[EKEventStore alloc] init];
     [localEventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error)
      {
          if (granted)
              dispatch_async(dispatch_get_main_queue(), ^{
                  self.eventStore = localEventStore;
-                 [self addEvent:details];
+                 [self addEvent:details callback:callback];
              });
          else
              NSLog(@"User denied calendar access");

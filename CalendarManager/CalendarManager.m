@@ -66,13 +66,20 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
     EKEventStore *localEventStore = [[EKEventStore alloc] init];
     [localEventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error)
      {
-         if (granted)
-             dispatch_async(dispatch_get_main_queue(), ^{
-                 self.eventStore = localEventStore;
-                 [self addEvent:details callback:callback];
-             });
-         else
-             NSLog(@"User denied calendar access");
+        if (error) {
+            return callback(@[@{@"type":@"permission", @"message": error.localizedDescription}]);
+        }
+
+        if (granted) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.eventStore = localEventStore;
+                [self addEvent:details callback:callback];
+            });
+        } else {
+            NSString *errorMessage = @"User denied calendar access";
+            callback(@[@{@"type":@"permission", @"message":errorMessage}]);
+            NSLog(@"%@", errorMessage);
+        }
      }];
 }
 

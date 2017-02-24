@@ -13,4 +13,6 @@
  *
  */
 import { NativeModules } from 'react-native';
+
+export const PERMISSION_ERROR = 'permission';
 export default NativeModules.CalendarManager;

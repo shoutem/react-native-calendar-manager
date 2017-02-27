@@ -15,4 +15,13 @@
 import { NativeModules } from 'react-native';
 
 export const PERMISSION_ERROR = 'permission';
-export default NativeModules.CalendarManager;
+
+const CalendarManager = NativeModules.CalendarManager;
+
+export default {
+    ...CalendarManager,
+    addEvent: (event, callback) => {
+        const dummyCallback = () => {};
+        CalendarManager.addEvent(event, callback || dummyCallback);
+    }
+}

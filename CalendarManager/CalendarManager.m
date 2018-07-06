@@ -19,7 +19,6 @@
 #import "React/RCTConvert.h"   // Required when used as a Pod in a Swift project
 #endif
 
-#import "AppDelegate.h"
 @implementation CalendarManager
 
 RCT_EXPORT_MODULE();
@@ -55,10 +54,9 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
     editEventController.event = event;
     editEventController.eventStore = self.eventStore;
     editEventController.editViewDelegate = self;
-
-    AppDelegate *delegate = (AppDelegate *)[[UIApplication sharedApplication] delegate];
-
-    [delegate.window.rootViewController presentViewController:editEventController animated:YES completion:nil];
+    
+    UIViewController *root = RCTPresentedViewController();
+    [root presentViewController:editEventController animated:YES completion:nil];
 }
 
 #pragma mark - EventView delegate
@@ -70,7 +68,6 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
 
 - (void)initEventStoreWithCalendarCapabilities:(NSDictionary *)details callback:(RCTResponseSenderBlock)callback
 {
-
     EKEventStore *localEventStore = [[EKEventStore alloc] init];
     [localEventStore requestAccessToEntityType:EKEntityTypeEvent completion:^(BOOL granted, NSError *error)
      {

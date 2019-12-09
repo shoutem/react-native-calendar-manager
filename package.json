@@ -1,6 +1,6 @@
 {
   "name": "react-native-calendar-manager",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "A calendar manager for react-native",
   "main": "index",
   "repository": {
@@ -10,11 +10,6 @@
   "dependencies": {
       "xcode": "0.8.4",
       "rnpm": "1.6.5"
-  },
-  "rnpm": {
-    "commands": {
-      "postlink": "node node_modules/react-native-calendar-manager/scripts/rnpm-postlink.js"
-    }
   },
   "ios": {
     "project": "CalendarManager.xcodeproj"

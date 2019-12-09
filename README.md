@@ -12,16 +12,13 @@ Exposes `addEvent` method which can save an event to an Android or iOS device's 
 
 Run `npm install --save git+ssh://git@bitbucket.org:fiveminutes/react-native-calendar-manager.git`
 
-### Automatic plugin linking using rnpm
+### Linking
 
-You can use [`rnpm`](https://github.com/rnpm/rnpm) to add native dependencies automatically.
-Just run:
+Run:
 
-`$ rnpm link`
+`$ react-native link react-native-calendar-manager`
 
-Which will link all native dependencies from the plugin.
-
-It will also add a directory containing your app's AppDelegate to CalendarManager projects build path which is necessary for building the iOS dependencies.
+Which will link all native dependencies from the plugin, as well as add a directory containing your app's AppDelegate to CalendarManager projects build path which is necessary for building the iOS dependencies.
 
 ### Manual plugin linking
 
@@ -38,7 +35,7 @@ It will also add a directory containing your app's AppDelegate to CalendarManage
    header files installed within the `react-native` `node_modules`
    directory.
 4. Add the line `$(SRCROOT)/../../ios/<YOUR PROJECT'S NAME>` as well, so that CalendarManager can find yor AppDelegate header file.
-   
+
 #### Android
 
 1. in `android/settings.gradle`   
@@ -55,23 +52,23 @@ It will also add a directory containing your app's AppDelegate to CalendarManage
 #!groovy
    dependencies {
        ...
-       compile project(':react-native-calendar-manager')
+       implementation project(':react-native-calendar-manager')
    }
 ```
 
-3. and finally, in `android/src/main/java/com/{YOUR_APP_NAME}/MainActivity.java` add:
-   
+3. and finally, in `android/src/main/java/com/{YOUR_APP_NAME}/MainApplication.java` add:
+
 ```
 #!java
-   //... MainActivity.java
-   import com.shoutem.calendar.CalendarManagerPackage; // <--- This!
+   //... MainApplication.java
+   import com.shoutem.calendar.CalendarManagerPackage; // <--- add this!
    //...
 
    @Override
    protected List<ReactPackage> getPackages() {
      return Arrays.<ReactPackage>asList(
-       new MainReactPackage(),
-       new CalendarManagerPackage() // <---- and This!
+       ...
+       packages.add(new MapsPackage()); // <---- add this!
      );
    }
 

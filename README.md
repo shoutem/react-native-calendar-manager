@@ -68,7 +68,7 @@ Which will link all native dependencies from the plugin, as well as add a direct
    protected List<ReactPackage> getPackages() {
      return Arrays.<ReactPackage>asList(
        ...
-       packages.add(new MapsPackage()); // <---- add this!
+       packages.add(new CalendarManagerPackage()); // <---- add this!
      );
    }
 

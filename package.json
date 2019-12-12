@@ -7,10 +7,6 @@
       "type": "git",
       "url": "git@bitbucket.org:fiveminutes/react-native-calendar-manager.git"
   },
-  "dependencies": {
-      "xcode": "0.8.4",
-      "rnpm": "1.6.5"
-  },
   "ios": {
     "project": "CalendarManager.xcodeproj"
   }

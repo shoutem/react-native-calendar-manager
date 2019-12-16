@@ -54,7 +54,7 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
     editEventController.event = event;
     editEventController.eventStore = self.eventStore;
     editEventController.editViewDelegate = self;
-    
+
     UIViewController *root = RCTPresentedViewController();
     [root presentViewController:editEventController animated:YES completion:nil];
 }
@@ -89,4 +89,3 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
 }
 
 @end
-

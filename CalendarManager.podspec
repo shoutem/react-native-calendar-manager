@@ -1,10 +1,6 @@
-require "json"
-
-package = JSON.parse(File.read(File.join(__dir__, "package.json")))
-
 Pod::Spec.new do |s|
   s.name         = "CalendarManager"
-  s.version      = "1.0.7"
+  s.version      = "1.1.0"
   s.summary      = "Native Shoutem extension used for access to Firebase SDK"
 
   s.homepage     = "http://www.shoutem.com"

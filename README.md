@@ -1,7 +1,7 @@
-# rn-calendar-manager
+# @shoutem/react-native-calendar-manager
 
 *Note*
-We renamed the package from `react-native-calendar-manager` to `rn-calendar-manager` because the name was already taken on npm before we published.
+We renamed the package from `react-native-calendar-manager` to `@shoutem/react-native-calendar-manager` because the name was already taken on npm before we published.
 
 A calendar manager for React Native. Exposes `addEvent` method which can save an event to an Android or iOS device's native calendar app.
 
@@ -12,7 +12,7 @@ A calendar manager for React Native. Exposes `addEvent` method which can save an
 
 ## Plugin installation
 
-Run `npm install --save rn-calendar-manager`
+Run `npm install --save @shoutem/react-native-calendar-manager`
 
 ### Linking
 
@@ -25,7 +25,7 @@ Otherwise, check the manual linking section.
 #### iOS
 
 1. Open your project in Xcode, right click on `Libraries` and click `Add
-   Files to "Your Project Name"` Look under `node_modules/rn-calendar-manager` and add `CalendarManager.xcodeproj`.  
+   Files to "Your Project Name"` Look under `node_modules/@shoutem/react-native-calendar-manager` and add `CalendarManager.xcodeproj`.  
 2. Add `libCalendarManager.a` to `Build Phases -> Link Binary With Libraries`
 3. Click on `CalendarManager.xcodeproj` in `Libraries` and go the `Build
    Settings` tab. Double click the text to the right of `Header Search
@@ -41,8 +41,8 @@ Otherwise, check the manual linking section.
 ```
 #!groovy
    ...
-   include ':rn-calendar-manager'
-   project(':rn-calendar-manager').projectDir = new File(rootProject.projectDir, '../node_modules/rn-calendar-manager/android')
+   include ':@shoutem/react-native-calendar-manager'
+   project(':@shoutem/react-native-calendar-manager').projectDir = new File(rootProject.projectDir, '../node_modules/@shoutem/react-native-calendar-manager/android')
 
 ```
 
@@ -51,7 +51,7 @@ Otherwise, check the manual linking section.
 #!groovy
    dependencies {
        ...
-       implementation project(':rn-calendar-manager')
+       implementation project(':@shoutem/react-native-calendar-manager')
    }
 ```
 
@@ -76,7 +76,7 @@ Otherwise, check the manual linking section.
 
 ## Example
 ```javascript
-import CalendarManager from 'rn-calendar-manager';
+import CalendarManager from '@shoutem/react-native-calendar-manager';
 
 const inTenMinutes = Date.now() + 1000 * 60 * 10;
 const inTwentyMinutes = Date.now() + 1000 * 60 * 10 * 2;

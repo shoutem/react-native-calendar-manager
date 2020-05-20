@@ -21,6 +21,11 @@
 
 @implementation CalendarManager
 
++ (BOOL)requiresMainQueueSetup
+{
+    return NO;
+}
+
 RCT_EXPORT_MODULE();
 
 RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBlock)callback)
@@ -50,20 +55,25 @@ RCT_EXPORT_METHOD(addEvent:(NSDictionary *)details callback:(RCTResponseSenderBl
     event.URL = URL;
     event.location = location;
 
-    EKEventEditViewController *editEventController = [[EKEventEditViewController alloc] init];
-    editEventController.event = event;
-    editEventController.eventStore = self.eventStore;
-    editEventController.editViewDelegate = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+      EKEventEditViewController *editEventController = [[EKEventEditViewController alloc] init];
+      editEventController.event = event;
+      editEventController.eventStore = self.eventStore;
+      editEventController.editViewDelegate = self;
 
-    UIViewController *root = RCTPresentedViewController();
-    [root presentViewController:editEventController animated:YES completion:nil];
+      UIViewController *root = RCTPresentedViewController();
+      [root presentViewController:editEventController animated:YES completion:nil];
+    });
+
 }
 
 #pragma mark - EventView delegate
 
 - (void)eventEditViewController:(EKEventEditViewController *)controller didCompleteWithAction:(EKEventEditViewAction)action
 {
+  dispatch_async(dispatch_get_main_queue(), ^{
     [controller.presentingViewController dismissViewControllerAnimated:YES completion:nil];
+  });
 }
 
 - (void)initEventStoreWithCalendarCapabilities:(NSDictionary *)details callback:(RCTResponseSenderBlock)callback
